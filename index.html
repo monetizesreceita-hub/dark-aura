@@ -110,13 +110,44 @@
       font-size: 12px;
       opacity: .6;
     }
+  .insta-link{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-family:'Orbitron',sans-serif;
+      font-size:22px;
+      letter-spacing:1px;
+      color:#fff;
+      text-decoration:none;
+      margin-bottom:12px;
+      transition:transform .25s ease,text-shadow .25s ease;
+      text-shadow:0 0 18px rgba(255,0,80,.9);
+    }
+
+    .insta-link svg{
+      width:26px;
+      height:26px;
+    }
+
+    .insta-link:hover{
+      transform:scale(1.05);
+      text-shadow:0 0 25px rgba(255,0,120,1);
+    }
+
   </style></head>
 <body><canvas id="bg"></canvas>
 
 <div class="container">
   <div class="card">
-    <div class="title">DARK AURA</div>
-    <div class="subtitle">Anime • Magia • Energia Oculta</div><div class="buttons">
+    <a href="https://www.instagram.com/vitor.release?igsh=MWxkbHc5NTg1N3Y0ag==" target="_blank" class="insta-link">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5C22 19.55 19.55 22 16.25 22h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 1.5C5.27 3.5 3.5 5.27 3.5 7.75v8.5c0 2.48 1.77 4.25 4.25 4.25h8.5c2.48 0 4.25-1.77 4.25-4.25v-8.5c0-2.48-1.77-4.25-4.25-4.25h-8.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 1.5a3.5 3.5 0 110 7 3.5 3.5 0 010-7zm5.25-.88a1.13 1.13 0 11-2.26 0 1.13 1.13 0 012.26 0z" fill="currentColor"/>
+      </svg>
+      <span>@vitor.release</span>
+    </a><div class="subtitle">• Site de redirecionamento de perfis • Links oficiais •</div>
+
+<div class="buttons">
   <a class="btn youtube" href="https://www.youtube.com/@vitor.release" target="_blank">YouTube</a>
   <a class="btn telegram" href="https://t.me/the_king_cheats_ofc2" target="_blank">Telegram</a>
   <a class="btn tiktok" href="https://www.tiktok.com/@vitor.release?_r=1&_t=ZS-93XtnNhXxJ2" target="_blank">TikTok</a>
@@ -175,35 +206,4 @@ function animate() {
 }
 animate();
 </script></body>
-</html>);
-        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = '#ff0033';
-        ctx.fill();
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const q = particles[j];
-          const dx = p.x - q.x;
-          const dy = p.y - q.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = 'rgba(255, 0, 80, 0.15)';
-            ctx.stroke();
-          }
-        }
-      }
-
-      requestAnimationFrame(draw);
-    }
-
-    draw();
-
-    function toggleSound(){
-      const bgm = document.getElementById('bgm');
-      if(bgm.paused){ bgm.play(); } else { bgm.pause(); }
-    }
-  </script></body>
 </html>
