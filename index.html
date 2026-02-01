@@ -154,7 +154,10 @@
   <a class="btn whatsapp" href="https://wa.me/557192735512" target="_blank">WhatsApp</a>
 </div>
 
-<footer>© 2026 • Vitor Release</footer>
+<footer>
+  <span id="visit-count">👁️ carregando visitas...</span><br>
+  © 2026 • Vitor Release
+</footer>
 
   </div>
 </div><script>
@@ -205,5 +208,17 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+
+
+// CONTADOR EXTERNO DE VISITAS (CountAPI)
+fetch('https://api.countapi.xyz/hit/vitor-release/site')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('visit-count').innerText = `👁️ ${data.value} visitas`;
+  })
+  .catch(() => {
+    document.getElementById('visit-count').innerText = '👁️ visitas indisponíveis';
+  });
+
 </script></body>
 </html>
