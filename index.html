@@ -1,140 +1,255 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>@vitor.release</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@vitor.release • Dark Aura</title>
 
-  <!-- Fonte -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+body {
+  background: black;
+  color: white;
+  overflow-x: hidden;
+}
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      overflow: hidden;
-    }
+/* 🎥 VÍDEO DE FUNDO */
+#bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.4);
+}
 
-    /* ===== VÍDEO DE FUNDO ===== */
-    .bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-    }
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(170,0,255,0.35), black);
+  z-index: -1;
+}
 
-    /* Overlay escuro */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(120,0,255,0.15), rgba(5,0,15,0.9));
-      z-index: -1;
-    }
+/* Conteúdo */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
 
-    /* ===== CONTAINER ===== */
-    .container {
-      width: 100%;
-      max-width: 420px;
-      padding: 30px 20px;
-      text-align: center;
-    }
+.username {
+  font-size: 32px;
+  font-weight: bold;
+  background: linear-gradient(90deg,#ff00ff,#00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 25px rgba(255,0,255,0.8);
+}
 
-    .username {
-      font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(90deg, #ff4dff, #6cf3ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 5px;
-    }
+.subtitle {
+  opacity: .85;
+}
 
-    .subtitle {
-      font-size: 14px;
-      opacity: 0.85;
-      margin-bottom: 30px;
-    }
+.btn {
+  width: 85%;
+  max-width: 360px;
+  padding: 16px;
+  border-radius: 40px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  background: linear-gradient(135deg,#b300ff,#00eaff);
+  color: black;
+  box-shadow: 0 0 35px rgba(170,0,255,0.8);
+}
 
-    /* ===== BOTÕES ===== */
-    .btn {
-      width: 100%;
-      padding: 16px;
-      margin: 14px 0;
-      border-radius: 50px;
-      font-size: 18px;
-      font-weight: 500;
-      text-decoration: none;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: linear-gradient(90deg, #b300ff, #00eaff);
-      box-shadow: 0 0 25px rgba(170, 0, 255, 0.6);
-      transition: 0.3s ease;
-    }
+/* 🤖 BOTÃO CHAT */
+#aiBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#b300ff,#00eaff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 0 40px rgba(170,0,255,1);
+  z-index: 1000;
+}
 
-    .btn:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 40px rgba(0, 234, 255, 0.9);
-    }
+/* 💬 CHAT IA */
+#aiChat {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 330px;
+  height: 460px;
+  background: rgba(5,0,15,.96);
+  border-radius: 18px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 0 45px rgba(170,0,255,.8);
+  z-index: 1000;
+}
 
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      opacity: 0.6;
-    }
-  </style>
+.chat-header {
+  padding: 12px;
+  background: linear-gradient(135deg,#b300ff,#00eaff);
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chat-body {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.msg {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 85%;
+}
+
+.bot { background: rgba(170,0,255,.25); }
+.user { background: rgba(0,255,255,.25); margin-left:auto; }
+
+.chat-input {
+  display: flex;
+  padding: 8px;
+  gap: 6px;
+}
+
+.chat-input input {
+  flex:1;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+.chat-input button {
+  border:none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(135deg,#b300ff,#00eaff);
+}
+</style>
 </head>
 
 <body>
 
-  <!-- 🎥 VÍDEO DE FUNDO -->
-  <video class="bg-video" autoplay muted loop playsinline>
-    <source src="assets/video/bg.mp4" type="video/mp4">
-  </video>
+<!-- 🎥 VÍDEO -->
+<video autoplay muted loop id="bgVideo">
+  <source src="assets/video/bg.mp4" type="video/mp4">
+</video>
 
-  <div class="container">
-    <div class="username">
-      <i class="fa-brands fa-instagram"></i> @vitor.release
-    </div>
+<div class="overlay"></div>
 
-    <div class="subtitle">
-      Dark Aura • Neon • Cyber • Gaming
-    </div>
+<div class="container">
+  <div class="username">@vitor.release</div>
+  <div class="subtitle">Dark Aura • Neon • Cyber • Gaming</div>
 
-    <a href="games.html" class="btn">
-      <i class="fa-solid fa-gamepad"></i> Área de Jogos
-    </a>
+  <button class="btn" onclick="location.href='games.html'">🎮 Área de Jogos</button>
+  <button class="btn" onclick="location.href='about.html'">👤 Sobre mim</button>
+  <button class="btn" onclick="location.href='https://instagram.com/vitor.release'">📸 Instagram</button>
+</div>
 
-    <a href="sobre.html" class="btn">
-      <i class="fa-solid fa-user"></i> Sobre mim
-    </a>
+<!-- 🤖 CHAT -->
+<div id="aiBtn" onclick="toggleChat()">💬</div>
 
-    <a href="https://instagram.com/vitor.release" target="_blank" class="btn">
-      <i class="fa-brands fa-instagram"></i> Instagram
-    </a>
-
-    <footer>
-      © Dark Aura • All Neon Rights Reserved
-    </footer>
+<div id="aiChat">
+  <div class="chat-header">
+    <span>🤖 Suporte IA</span>
+    <span onclick="toggleChat()" style="cursor:pointer">✖</span>
   </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input">
+    <input id="msgInput" placeholder="Digite sua pergunta...">
+    <button onclick="sendMsg()">➤</button>
+  </div>
+</div>
+
+<script>
+const chatBody = document.getElementById("chatBody");
+const lang = navigator.language || "pt-BR";
+const pageContext = "Página principal Dark Aura";
+const premium = localStorage.getItem("premium") === "true";
+
+function toggleChat() {
+  const c = document.getElementById("aiChat");
+  c.style.display = c.style.display === "flex" ? "none" : "flex";
+}
+
+function addMsg(text, cls){
+  const d = document.createElement("div");
+  d.className = "msg " + cls;
+  d.innerText = text;
+  chatBody.appendChild(d);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function sendMsg(){
+  const input = document.getElementById("msgInput");
+  if(!input.value) return;
+  addMsg(input.value,"user");
+  saveHistory("user",input.value);
+
+  fetch("https://SEU-ENDPOINT-AQUI/chat", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      message: input.value,
+      lang,
+      pageContext,
+      premium
+    })
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    addMsg(d.reply,"bot");
+    saveHistory("bot",d.reply);
+  })
+  .catch(()=>{
+    addMsg("⚠️ IA offline no momento.","bot");
+  });
+
+  input.value="";
+}
+
+function saveHistory(role,text){
+  const h = JSON.parse(localStorage.getItem("chatHistory")||"[]");
+  h.push({role,text});
+  localStorage.setItem("chatHistory",JSON.stringify(h));
+}
+
+(function loadHistory(){
+  const h = JSON.parse(localStorage.getItem("chatHistory")||"[]");
+  h.forEach(m=>addMsg(m.text,m.role));
+  if(!h.length){
+    addMsg("Olá 👋 Sou sua IA de suporte.","bot");
+  }
+})();
+</script>
 
 </body>
 </html>
