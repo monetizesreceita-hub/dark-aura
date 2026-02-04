@@ -2,18 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Dark Aura • vitor.release</title>
+  <title>@vitor.release</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <!-- Fonte -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <!-- Ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     * {
@@ -25,157 +21,119 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at top, #1a0026, #050008);
-      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 420px;
-      padding: 25px;
-      animation: fadeIn 1.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* TOPO */
-    .top {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .top a {
-      text-decoration: none;
-    }
-
-    .top .insta {
-      font-size: 1.8rem;
-      margin-right: 8px;
-      color: #ff4dff;
-      filter: drop-shadow(0 0 10px #ff4dff);
-    }
-
-    .top h1 {
-      display: inline-block;
-      font-size: 1.9rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, #ff4dff, #8a2be2, #00f7ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
-      transition: 0.3s;
-    }
-
-    .top h1:hover {
-      filter: drop-shadow(0 0 20px #00f7ff);
-    }
-
-    .subtitle {
-      margin-top: 8px;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-
-    /* BOTÕES */
-    .buttons {
-      margin-top: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .btn-neon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 15px;
-      border-radius: 50px;
-      text-decoration: none;
       color: #fff;
-      font-weight: 600;
-      background: linear-gradient(90deg, #b400ff, #ff4dff, #00f7ff);
-      box-shadow: 0 0 25px rgba(180, 0, 255, 0.7);
-      transition: 0.3s;
-      position: relative;
       overflow: hidden;
     }
 
-    .btn-neon::after {
+    /* ===== VÍDEO DE FUNDO ===== */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    /* Overlay escuro */
+    body::before {
       content: "";
-      position: absolute;
+      position: fixed;
       inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-      transform: translateX(-100%);
+      background: radial-gradient(circle at top, rgba(120,0,255,0.15), rgba(5,0,15,0.9));
+      z-index: -1;
     }
 
-    .btn-neon:hover::after {
-      transform: translateX(100%);
-      transition: 0.6s;
-    }
-
-    .btn-neon:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(255, 77, 255, 0.9);
-    }
-
-    .btn-neon i {
-      font-size: 1.1rem;
-    }
-
-    /* FOOTER */
-    .footer {
-      margin-top: 35px;
+    /* ===== CONTAINER ===== */
+    .container {
+      width: 100%;
+      max-width: 420px;
+      padding: 30px 20px;
       text-align: center;
-      font-size: 0.75rem;
-      opacity: 0.5;
+    }
+
+    .username {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ff4dff, #6cf3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-bottom: 30px;
+    }
+
+    /* ===== BOTÕES ===== */
+    .btn {
+      width: 100%;
+      padding: 16px;
+      margin: 14px 0;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(90deg, #b300ff, #00eaff);
+      box-shadow: 0 0 25px rgba(170, 0, 255, 0.6);
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 40px rgba(0, 234, 255, 0.9);
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 12px;
+      opacity: 0.6;
     }
   </style>
 </head>
+
 <body>
 
+  <!-- 🎥 VÍDEO DE FUNDO -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="assets/video/bg.mp4" type="video/mp4">
+  </video>
+
   <div class="container">
-
-    <!-- TOPO COM INSTAGRAM -->
-    <div class="top">
-      <a href="https://www.instagram.com/vitor.release?igsh=MWxkbHc5NTg1N3Y0ag==" target="_blank">
-        <i class="fa-brands fa-instagram insta"></i>
-        <h1>@vitor.release</h1>
-      </a>
-      <div class="subtitle">Dark Aura • Neon • Cyber • Gaming</div>
+    <div class="username">
+      <i class="fa-brands fa-instagram"></i> @vitor.release
     </div>
 
-    <!-- BOTÕES -->
-    <div class="buttons">
-
-      <a href="games.html" class="btn-neon">
-        <i class="fa-solid fa-gamepad"></i>
-        Área de Jogos
-      </a>
-
-      <!-- 🔥 BOTÃO SOBRE MIM -->
-      <a href="sobre.html" class="btn-neon">
-        <i class="fa-solid fa-user"></i>
-        Sobre mim
-      </a>
-
-      <a href="https://www.instagram.com/vitor.release?igsh=MWxkbHc5NTg1N3Y0ag==" target="_blank" class="btn-neon">
-        <i class="fa-brands fa-instagram"></i>
-        Instagram
-      </a>
-
+    <div class="subtitle">
+      Dark Aura • Neon • Cyber • Gaming
     </div>
 
-    <div class="footer">
+    <a href="games.html" class="btn">
+      <i class="fa-solid fa-gamepad"></i> Área de Jogos
+    </a>
+
+    <a href="sobre.html" class="btn">
+      <i class="fa-solid fa-user"></i> Sobre mim
+    </a>
+
+    <a href="https://instagram.com/vitor.release" target="_blank" class="btn">
+      <i class="fa-brands fa-instagram"></i> Instagram
+    </a>
+
+    <footer>
       © Dark Aura • All Neon Rights Reserved
-    </div>
-
+    </footer>
   </div>
 
 </body>
