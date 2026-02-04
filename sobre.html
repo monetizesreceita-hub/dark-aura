@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sobre mim • Dark Aura</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonte -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1a0026, #050008);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* GLOW ANIMATION */
+    @keyframes neonPulse {
+      0% { box-shadow: 0 0 15px #b400ff; }
+      50% { box-shadow: 0 0 35px #ff4dff; }
+      100% { box-shadow: 0 0 15px #b400ff; }
+    }
+
+    /* CONTAINER */
+    .page {
+      max-width: 420px;
+      margin: auto;
+      padding-bottom: 40px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* IMAGEM TOPO */
+    .top-image {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+    }
+
+    .top-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.9);
+    }
+
+    .top-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent, #050008 90%);
+    }
+
+    /* PERFIL */
+    .profile {
+      margin-top: -60px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .profile h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ff4dff, #8a2be2, #00f7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+      animation: glowText 3s infinite alternate;
+    }
+
+    @keyframes glowText {
+      from { filter: drop-shadow(0 0 5px #ff4dff); }
+      to { filter: drop-shadow(0 0 15px #00f7ff); }
+    }
+
+    .profile p {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    /* CARDS */
+    .card {
+      margin: 20px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      animation: neonPulse 4s infinite;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #ff9cff;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    /* BOTÃO */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 25px 20px 0;
+      padding: 14px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      background: linear-gradient(90deg, #b400ff, #ff4dff, #00f7ff);
+      box-shadow: 0 0 25px rgba(180, 0, 255, 0.7);
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255, 77, 255, 0.9);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- IMAGEM TOPO -->
+    <div class="top-image">
+      <img src="assets/img/sobre.jpg" alt="Minha foto">
+    </div>
+
+    <!-- PERFIL -->
+    <div class="profile">
+      <h1>@vitor.release</h1>
+      <p>Dark Aura • Cyber • Neon • Gaming vibes</p>
+    </div>
+
+    <!-- CARD SOBRE -->
+    <div class="card">
+      <h2>✨ Sobre mim</h2>
+      <p>
+        Criador de conteúdo, apaixonado por estética cyber neon,
+        tecnologia, jogos e identidade visual forte.
+        Aqui é onde o dark encontra o futurista.
+      </p>
+    </div>
+
+    <!-- CARD EXTRA -->
+    <div class="card">
+      <h2>⚡ Estilo</h2>
+      <p>
+        Purple neon, animações suaves, visual futurista e
+        experiência imersiva em cada detalhe.
+      </p>
+    </div>
+
+    <!-- BOTÃO VOLTAR -->
+    <a href="index.html" class="btn">
+      <i class="fa-solid fa-arrow-left"></i>
+      Voltar ao site
+    </a>
+
+  </div>
+
+</body>
+</html>
