@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>@vitor.release</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <link rel="manifest" href="manifest.json">
 
@@ -19,19 +19,74 @@
 body.light{--bg-main:#fff;--text:#000;--card:rgba(0,0,0,0.05);}
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
-body{background:var(--bg-main);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden}
 
-.bg-video{position:fixed;width:100%;height:100%;object-fit:cover;z-index:-2}
-#particles-js{position:fixed;width:100%;height:100%;z-index:-3}
+body{
+  background:var(--bg-main);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden; /* 🔥 permite scroll vertical */
+}
 
-.container{max-width:420px;width:100%;padding:20px;text-align:center}
-.btn{width:100%;padding:15px;margin:10px 0;border-radius:40px;border:none;color:#fff;background:linear-gradient(90deg,#b300ff,#00eaff)}
+/* SAFE AREA */
+.container{
+  max-width:420px;
+  width:100%;
+  padding:20px;
+  margin:auto;
+  padding-top:80px;
+  padding-bottom:40px;
+}
 
-.card{background:var(--card);padding:15px;border-radius:15px;margin-top:15px}
+.bg-video{
+  position:fixed;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
 
-.chat-box{height:150px;overflow:auto;text-align:left;font-size:12px;margin-bottom:10px}
+#particles-js{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-3;
+}
 
-input{width:100%;padding:10px;border:none;border-radius:10px;margin:5px 0}
+.btn{
+  width:100%;
+  padding:15px;
+  margin:10px 0;
+  border-radius:40px;
+  border:none;
+  color:#fff;
+  background:linear-gradient(90deg,#b300ff,#00eaff);
+  font-size:16px;
+}
+
+.card{
+  background:var(--card);
+  padding:15px;
+  border-radius:15px;
+  margin-top:15px;
+  backdrop-filter: blur(10px);
+}
+
+.chat-box{
+  height:150px;
+  overflow:auto;
+  text-align:left;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  margin:6px 0;
+  font-size:14px;
+}
 
 /* MENU */
 #menuDrop{
@@ -43,26 +98,32 @@ background:black;
 padding:10px;
 border-radius:10px;
 }
+
+/* RESPONSIVO EXTRA */
+@media (max-width:400px){
+  .btn{font-size:14px;padding:12px;}
+}
 </style>
 </head>
 
 <body>
 
-<!-- MENU TOP -->
+<!-- MENU -->
 <div style="position:fixed;top:15px;right:15px;z-index:999;">
   <button onclick="toggleMenu()" style="background:none;border:none;color:white;font-size:22px;">
     ☰
   </button>
 
   <div id="menuDrop">
-    <p onclick="alert('Configurações em breve')">⚙️ Config</p>
-    <p onclick="alert('Suporte em breve')">🛠️ Suporte</p>
+    <p onclick="logout()">🚪 Logout</p>
+    <p>⚙️ Config</p>
+    <p>🛠️ Suporte</p>
   </div>
 </div>
 
 <div id="particles-js"></div>
 
-<video class="bg-video" autoplay muted loop>
+<video class="bg-video" autoplay muted loop playsinline>
 <source src="assets/video/bg.mp4" type="video/mp4">
 </video>
 
@@ -72,10 +133,9 @@ border-radius:10px;
 
 <button class="btn" onclick="toggleTheme()">🌙 Tema</button>
 
-<!-- SOBRE MIM VOLTOU -->
 <a href="sobre.html" class="btn">👤 Sobre mim</a>
 
-<!-- LOGIN REAL -->
+<!-- LOGIN -->
 <div class="card" id="loginCard">
 <h3>🔐 Login Firebase</h3>
 <input id="email" placeholder="Email">
@@ -99,10 +159,10 @@ border-radius:10px;
 <button class="btn" onclick="sendMsg()">Enviar</button>
 </div>
 
-<!-- JOGOS (CORRIGIDO) -->
+<!-- JOGOS -->
 <div class="card">
 <h3>🎮 Jogos</h3>
-<iframe src="https://www.crazygames.com/embed/space-waves" width="100%" height="200"></iframe>
+<iframe src="https://www.crazygames.com/embed/space-waves" width="100%" height="220" style="border-radius:10px;"></iframe>
 </div>
 
 </div>
@@ -110,7 +170,7 @@ border-radius:10px;
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -127,6 +187,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+let currentUser = null;
+
 // LOGIN
 window.register = () => {
   createUserWithEmailAndPassword(auth, email.value, senha.value)
@@ -136,35 +198,49 @@ window.register = () => {
 
 window.login = () => {
   signInWithEmailAndPassword(auth, email.value, senha.value)
-    .then(()=> alert("Logado 🔥"))
     .catch(e=>alert(e.message));
 };
 
-// 🔥 DETECTA LOGIN E ESCONDE TELA
+// LOGOUT
+window.logout = () => {
+  signOut(auth);
+};
+
+// DETECTA LOGIN
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    currentUser = user.email;
+
     document.getElementById("loginCard").innerHTML =
       "<h3>🔥 Logado como:</h3><p>"+user.email+"</p>";
+  } else {
+    location.reload();
   }
 });
 
 // CHAT
 window.sendMsg = async () => {
+  if(!currentUser) return alert("Faça login!");
   await addDoc(collection(db,"chat"), {
-    msg: msg.value
+    msg: msg.value,
+    user: currentUser
   });
 };
 
+// ATUALIZA CHAT
 onSnapshot(collection(db,"chat"), snap=>{
   chat.innerHTML="";
   snap.forEach(doc=>{
-    chat.innerHTML += "<p>"+doc.data().msg+"</p>";
+    let d = doc.data();
+    chat.innerHTML += "<p><b>"+d.user+":</b> "+d.msg+"</p>";
   });
 });
 
 // RANKING
 window.addScore = async () => {
+  if(!currentUser) return alert("Faça login!");
   await addDoc(collection(db,"rank"), {
+    user: currentUser,
     score: Math.floor(Math.random()*100)
   });
 };
@@ -172,7 +248,8 @@ window.addScore = async () => {
 onSnapshot(collection(db,"rank"), snap=>{
   ranking.innerHTML="";
   snap.forEach(doc=>{
-    ranking.innerHTML += "<p>Score: "+doc.data().score+"</p>";
+    let d = doc.data();
+    ranking.innerHTML += "<p>"+d.user+" - "+d.score+"</p>";
   });
 });
 </script>
