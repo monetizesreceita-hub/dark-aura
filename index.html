@@ -197,7 +197,12 @@
 
     <div class="subtitle">
       Dark Aura • Neon • Cyber • Gaming
-    </div>
+      <div class="card" id="loginBox">
+  <h3>🔐 Login</h3>
+  <input type="text" id="user" placeholder="Usuário" style="width:100%;padding:10px;margin:8px 0;border-radius:10px;border:none;">
+  <input type="password" id="pass" placeholder="Senha" style="width:100%;padding:10px;margin:8px 0;border-radius:10px;border:none;">
+  <button class="btn" onclick="login()">Entrar</button>
+</div>
 
     <!-- BOTÕES ORIGINAIS (MANTIDOS) -->
     <a href="games.html" class="btn">
@@ -235,6 +240,13 @@
   </div>
 
   <script>
+  function login(){
+  let user = document.getElementById("user").value;
+  if(user.length > 2){
+    document.getElementById("loginBox").innerHTML = 
+      "<h3>🔥 Bem-vindo, "+user+"!</h3>";
+  }
+}
     // Loader
     window.onload = () => {
       setTimeout(() => {
@@ -246,6 +258,7 @@
     function toggleTheme(){
       document.body.classList.toggle("light");
     }
+    
   </script>
 
 </body>
