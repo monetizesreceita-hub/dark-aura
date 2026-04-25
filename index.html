@@ -1,328 +1,160 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>@vitor.release</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>@vitor.release</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json">
 
-  <!-- Fonte -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg-main:#05000f;
+  --text:#fff;
+  --card:rgba(255,255,255,0.05);
+}
+body.light{--bg-main:#fff;--text:#000;--card:rgba(0,0,0,0.05);}
 
-  <style>
-    :root{
-      --bg-main: #05000f;
-      --text-main: #ffffff;
-      --card-bg: rgba(255,255,255,0.05);
-    }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+body{background:var(--bg-main);color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden}
 
-    body.light {
-      --bg-main: #f5f5f5;
-      --text-main: #111;
-      --card-bg: rgba(0,0,0,0.05);
-    }
+.bg-video{position:fixed;width:100%;height:100%;object-fit:cover;z-index:-2}
+#particles-js{position:fixed;width:100%;height:100%;z-index:-3}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+.container{max-width:420px;width:100%;padding:20px;text-align:center}
+.btn{width:100%;padding:15px;margin:10px 0;border-radius:40px;border:none;color:#fff;background:linear-gradient(90deg,#b300ff,#00eaff)}
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: var(--text-main);
-      overflow: hidden;
-      background: var(--bg-main);
-    }
+.card{background:var(--card);padding:15px;border-radius:15px;margin-top:15px}
 
-    /* LOADER */
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      font-size: 22px;
-      letter-spacing: 2px;
-    }
+.chat-box{height:150px;overflow:auto;text-align:left;font-size:12px;margin-bottom:10px}
 
-    /* ===== VÍDEO DE FUNDO ===== */
-    .bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-    }
-
-    /* Partículas */
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -3;
-    }
-
-    /* Overlay escuro */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(120,0,255,0.15), rgba(5,0,15,0.9));
-      z-index: -1;
-    }
-
-    /* NAVBAR */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
-      z-index: 10;
-    }
-
-    .nav-btn {
-      color: #fff;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    /* MENU LATERAL */
-    #menu {
-      position: fixed;
-      left: -250px;
-      top: 0;
-      width: 250px;
-      height: 100%;
-      background: #000;
-      padding: 20px;
-      transition: 0.3s;
-      z-index: 20;
-    }
-
-    #menu p {
-      margin: 15px 0;
-      cursor: pointer;
-    }
-
-    /* ===== CONTAINER ===== */
-    .container {
-      width: 100%;
-      max-width: 420px;
-      padding: 30px 20px;
-      text-align: center;
-      animation: fadeIn 1.2s ease;
-    }
-
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(20px);}
-      to {opacity:1; transform: translateY(0);}
-    }
-
-    .username {
-      font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(90deg, #ff4dff, #6cf3ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      opacity: 0.85;
-      margin-bottom: 30px;
-    }
-
-    /* BOTÕES */
-    .btn {
-      width: 100%;
-      padding: 16px;
-      margin: 14px 0;
-      border-radius: 50px;
-      font-size: 18px;
-      font-weight: 500;
-      text-decoration: none;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: linear-gradient(90deg, #b300ff, #00eaff);
-      box-shadow: 0 0 25px rgba(170, 0, 255, 0.6);
-      transition: 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.04);
-      box-shadow: 0 0 40px rgba(0, 234, 255, 0.9);
-    }
-
-    /* CARDS */
-    .card {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 20px;
-      background: var(--card-bg);
-      backdrop-filter: blur(15px);
-    }
-
-    input {
-      width:100%;
-      padding:10px;
-      margin:8px 0;
-      border-radius:10px;
-      border:none;
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 12px;
-      opacity: 0.6;
-    }
-
-    .version {
-      margin-top: 10px;
-      font-size: 11px;
-      opacity: 0.5;
-    }
-  </style>
+input{width:100%;padding:10px;border:none;border-radius:10px;margin:5px 0}
+</style>
 </head>
 
 <body>
 
-  <!-- LOADER -->
-  <div id="loader">LOADING...</div>
+<div id="particles-js"></div>
 
-  <!-- PARTÍCULAS -->
-  <div id="particles-js"></div>
+<video class="bg-video" autoplay muted loop>
+<source src="assets/video/bg.mp4" type="video/mp4">
+</video>
 
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="nav-btn" onclick="toggleTheme()">
-      <i class="fa-solid fa-moon"></i>
-    </div>
-    <div class="nav-btn">
-      <i class="fa-solid fa-bars"></i>
-    </div>
-  </div>
+<div class="container">
 
-  <!-- MENU -->
-  <div id="menu">
-    <h3>Menu</h3>
-    <p>🎮 Jogos</p>
-    <p>👤 Perfil</p>
-    <p>⚙️ Config</p>
-  </div>
+<h2>@vitor.release</h2>
 
-  <!-- VÍDEO ORIGINAL MANTIDO -->
-  <video class="bg-video" autoplay muted loop playsinline>
-    <source src="assets/video/bg.mp4" type="video/mp4">
-  </video>
+<button class="btn" onclick="toggleTheme()">🌙 Tema</button>
 
-  <div class="container">
-    <div class="username">
-      <i class="fa-brands fa-instagram"></i> @vitor.release
-    </div>
+<!-- LOGIN REAL -->
+<div class="card">
+<h3>🔐 Login Firebase</h3>
+<input id="email" placeholder="Email">
+<input id="senha" type="password" placeholder="Senha">
+<button class="btn" onclick="register()">Registrar</button>
+<button class="btn" onclick="login()">Entrar</button>
+</div>
 
-    <div class="subtitle">
-      Dark Aura • Neon • Cyber • Gaming
-    </div>
+<!-- RANKING -->
+<div class="card">
+<h3>🏆 Ranking Global</h3>
+<button class="btn" onclick="addScore()">Adicionar Pontos</button>
+<div id="ranking"></div>
+</div>
 
-    <!-- BOTÕES ORIGINAIS -->
-    <a href="games.html" class="btn">
-      <i class="fa-solid fa-gamepad"></i> Área de Jogos
-    </a>
+<!-- CHAT -->
+<div class="card">
+<h3>💬 Chat Global</h3>
+<div class="chat-box" id="chat"></div>
+<input id="msg" placeholder="Mensagem">
+<button class="btn" onclick="sendMsg()">Enviar</button>
+</div>
 
-    <a href="sobre.html" class="btn">
-      <i class="fa-solid fa-user"></i> Sobre mim
-    </a>
+<!-- JOGOS -->
+<div class="card">
+<h3>🎮 Jogos</h3>
+<iframe src="https://www.crazygames.com/embed/shellshockers" width="100%" height="200"></iframe>
+</div>
 
-    <a href="https://instagram.com/vitor.release" target="_blank" class="btn">
-      <i class="fa-brands fa-instagram"></i> Instagram
-    </a>
+</div>
 
-    <!-- LOGIN -->
-    <div class="card" id="loginBox">
-      <h3>🔐 Login</h3>
-      <input type="text" id="user" placeholder="Usuário">
-      <input type="password" placeholder="Senha">
-      <button class="btn" onclick="login()">Entrar</button>
-    </div>
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    <!-- HUB -->
-    <div class="card">
-      <h3>🔥 Gaming Hub</h3>
-      <p>Plataforma em evolução estilo servidor.</p>
-    </div>
+/* 🔥 SUA CONFIG INTEGRADA */
+const firebaseConfig = {
+  apiKey: "AIzaSyDh_2uT0YvHfX3ZY1Ejp9FebyTgvqbGI28",
+  authDomain: "login-3d85e.firebaseapp.com",
+  projectId: "login-3d85e",
+  storageBucket: "login-3d85e.firebasestorage.app",
+  messagingSenderId: "1064156003724",
+  appId: "1:1064156003724:web:eb47844ce9d81762256aa9",
+  measurementId: "G-EFLBW3PPZY"
+};
 
-    <footer>
-      © Dark Aura • All Neon Rights Reserved
-    </footer>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-    <div class="version">
-      Version 3.3.2.33.2026 • Gaming Build
-    </div>
-  </div>
+// LOGIN
+window.register = () => {
+  createUserWithEmailAndPassword(auth, email.value, senha.value)
+    .then(()=> alert("Conta criada 🔥"))
+    .catch(e=>alert(e.message));
+};
 
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+window.login = () => {
+  signInWithEmailAndPassword(auth, email.value, senha.value)
+    .then(()=> alert("Logado 🔥"))
+    .catch(e=>alert(e.message));
+};
 
-  <script>
-    // Loader
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
-      }, 1200);
-    };
+// CHAT
+window.sendMsg = async () => {
+  await addDoc(collection(db,"chat"), {
+    msg: msg.value
+  });
+};
 
-    // Tema
-    function toggleTheme(){
-      document.body.classList.toggle("light");
-    }
+// ATUALIZA CHAT
+onSnapshot(collection(db,"chat"), snap=>{
+  chat.innerHTML="";
+  snap.forEach(doc=>{
+    chat.innerHTML += "<p>"+doc.data().msg+"</p>";
+  });
+});
 
-    // Menu
-    document.querySelector(".fa-bars").onclick = () => {
-      let menu = document.getElementById("menu");
-      menu.style.left = menu.style.left === "0px" ? "-250px" : "0px";
-    };
+// RANKING
+window.addScore = async () => {
+  await addDoc(collection(db,"rank"), {
+    score: Math.floor(Math.random()*100)
+  });
+};
 
-    // Login fake
-    function login(){
-      let user = document.getElementById("user").value;
-      if(user.length > 2){
-        document.getElementById("loginBox").innerHTML =
-          "<h3>🔥 Bem-vindo, "+user+"!</h3>";
-      }
-    }
+// ATUALIZA RANKING
+onSnapshot(collection(db,"rank"), snap=>{
+  ranking.innerHTML="";
+  snap.forEach(doc=>{
+    ranking.innerHTML += "<p>Score: "+doc.data().score+"</p>";
+  });
+});
+</script>
 
-    // Partículas
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 40 },
-        color: { value: "#00eaff" },
-        size: { value: 2 },
-        move: { speed: 1 }
-      }
-    });
-  </script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+
+particlesJS("particles-js",{particles:{number:{value:40}}});
+</script>
 
 </body>
 </html>
